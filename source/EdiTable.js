@@ -1,5 +1,5 @@
 ﻿// ---------------------------------------------------------------------------------
-//                                    EdiTable.js
+//                              Induxsoft EdiTable.js
 //                Copyright 2021 Induxsoft Data Services S de RL de CV
 //                
 //         Induxsoft is a trademark of Induxsoft Data Services S de RL de CV               
