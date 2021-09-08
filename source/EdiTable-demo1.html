@@ -1,0 +1,160 @@
+<html>
+
+    <body>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" type="text/css" href="EdiTable.css"></link>
+
+        <script src="EdiTable.js"></script>
+        <script type="text/javascript">
+        var table=ediTable();
+
+        $(document).ready(function()
+        {
+            
+            table.Initialize("tabla-demo");
+            //Ejemplo de evento EnterCell
+            table.Events[EdiTable.Const.Events.EnterCell]=function(e)
+            {
+                console.log("Tabla:"+e.sender.tableId);
+                console.log("Fila:"+e.sender.CurrentRowIndex().toString()+", Columna:"+e.sender.CurrentColIndex().toString());
+            };
+
+            
+            table.Columns[0]={
+                type:EdiTable.Const.Columns.Types.Text,
+                field:"titulo"
+            };
+
+            //Ejemplo de implementación de la edición usando una columna personalizada
+            table.Events[EdiTable.Const.Events.StartEdition]=function(e)
+            {
+                if (e.coldef.field=="estrellas")
+                {
+                    let obj=e.sender.DataArray[e.sender.RowIndexOfTd(e.td)];
+
+                    let contador=parseInt(obj[e.coldef.field]);
+
+                    if (isNaN(contador))
+                        contador=0;
+
+                    contador++;
+                    obj[e.coldef.field]=contador;
+
+                    //  Para actualizar la tabla, se puede optar por:
+                    //  1-Actualizar el objeto subyacente y luego toda la fila:
+                    //      La ventaja de actualizar toda la fila es que se pueden actualizar valores a otras columnas
+                            if (contador==4)
+                                obj["director"]="CUATRO";
+
+                            e.sender.UpdateRow(e.sender.RowIndexOfTd(e.td));
+
+                    //  2-O confirmar la edición de la celda:
+                            //e.sender.ConfirmEdit(e.td,contador.toString());
+
+                    e.sender.CellFocus(e.td); //Esta línea vuelve a seleccionar la celda editada
+                }
+            }
+
+            //Ejemplo de validación de entrada y almacenamiento de la clave de una opción de Select en un miembro
+            table.Events[EdiTable.Const.Events.BeforeUpdateCell]=function(e)
+            {
+                if (e.text=="juan" && e.coldef.field=="titulo")
+                {
+                    alert("NO debes escribir juan en la columna 'Título'");
+                    e.cancel=true;
+                }
+                if (e.coldef.field=="genero")
+                {
+                    var combo=e.input.get(0);
+                    if (combo.selectedIndex<0)
+                        e.text="";
+                    else
+                        e.text=combo.options[combo.selectedIndex].text;
+                        
+                    e.sender.UpdateDataMember (e.sender.RowIndexOfTd(e.td),"id_genero",e.input.val());
+                }
+            };
+
+            //Usa la clave almacenada para establecer el valor del Select
+            table.Events[EdiTable.Const.Events.BeforeSetInput]=function(e){
+                if (e.coldef.field=="genero")
+                {
+                    e.text=e.sender.DataArray[e.sender.RowIndexOfTd(e.td)].id_genero;
+                }
+            };
+
+            table.Columns[1]={
+                type:EdiTable.Const.Columns.Types.Text,
+                field:"director"
+            };
+            
+            table.Columns[2]={
+                type:EdiTable.Const.Columns.Types.Select,
+                field:"genero",
+                options:{
+                    "01":"Acción",
+                    "02":"Drama",
+                    "03":"Comedia",
+                    "04":"Historia"
+                }
+            };
+
+            table.Columns[3]={type:EdiTable.Const.Columns.Types.Memo,field:"sinopsis"};
+            table.Columns[4]={type:EdiTable.Const.Columns.Types.Date, field:"estreno"};
+            table.Columns[5]={type:EdiTable.Const.Columns.Types.Number, field:"recaudacion"};
+            table.Columns[6]={
+                type:EdiTable.Const.Columns.Types.Check,
+                field:"nopor",
+                default:"No" //Ejemplo de uso de valor predeterminado
+            };
+
+            //table.Columns[7]={};Intencionalmente la columna index=7 (País) no actualiza al objeto subyacente
+
+            table.Columns[8]={type:EdiTable.Const.Columns.Types.Custom,field:"estrellas",};
+            table.Columns[9]={
+                type:EdiTable.Const.Columns.Types.Select,
+                field:"posicion",
+                options:{
+                    "1":"Primero",
+                    "2":"Segundo",
+                    "3":"Tercero",
+                    "4":"Cuarto",
+                    "5":"Quinto"
+                }
+            };
+
+            table.Columns[10]={
+                type:EdiTable.Const.Columns.Types.Select,
+                field:"tipo",
+                options:{
+                    "Live Action":"Live Action",
+                    "Animación":"Animación"
+                }
+            };
+
+
+        });
+        </script>
+        <h1>Mis películas</h1>
+        <button onclick="table.AddRow();">Agregar fila</button>
+        <br/>
+        <table id="tabla-demo">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Director</th>
+                    <th>Género</th>
+                    <th>Sinopsis</th>
+                    <th>F. Estreno</th>
+                    <th>Dinero recaudado</th>
+                    <th>Solo adultos</th>
+                    <th>País</th>
+                    <th>Calificación</th>
+                    <th>Lugar por Ingresos</th>
+                    <th>Tipo de película</th>
+                </tr>
+            </thead>
+            
+        </table>
+</body>
