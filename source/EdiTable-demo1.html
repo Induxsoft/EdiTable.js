@@ -105,7 +105,7 @@
             table.Columns[5]={type:EdiTable.Const.Columns.Types.Number, field:"recaudacion"};
             table.Columns[6]={
                 type:EdiTable.Const.Columns.Types.Check,
-                field:"nopor",
+                field:"xxx",
                 default:"No" //Ejemplo de uso de valor predeterminado
             };
 
@@ -133,6 +133,20 @@
                 }
             };
 
+            //Funcionalidad similar a la colindex=2 (genero), pero sin programar los eventos
+            //el campo 'keyfield' cuando está establecido indica dónde guardar la clave
+            table.Columns[11]={
+                type:EdiTable.Const.Columns.Types.Select,
+                //field:"opcion_text", (Si se omite 'field', solo se preserva la clave)
+                keyfield:"opcion_clave",
+                options:{
+                    "a":"Opción 1",
+                    "b":"Opción 2",
+                    "c":"Opción 3",
+                    "d":"Opción 4"
+                }
+            };
+
 
         });
         </script>
@@ -153,6 +167,7 @@
                     <th>Calificación</th>
                     <th>Lugar por Ingresos</th>
                     <th>Tipo de película</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             

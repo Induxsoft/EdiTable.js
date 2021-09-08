@@ -832,6 +832,13 @@ function ediTable(id)
                         text: value
                     }));
                   });
+
+                if (columnDef.keyfield!=undefined)
+                {
+                    if (this.DataArray[this.RowIndexOfTd(td)]!=undefined)
+                        if (this.DataArray[this.RowIndexOfTd(td)][columnDef.keyfield]!=undefined)
+                            text=this.DataArray[this.RowIndexOfTd(td)][columnDef.keyfield];
+                }
             }
 
             var eventArgs={
@@ -877,6 +884,17 @@ function ediTable(id)
             if (input!=undefined)
             {
                 eventArgs.text=EdiTable.GetInputValue(input, this, columnDef);
+
+                if (columnDef.keyfield!=undefined && columnDef.type==EdiTable.Const.Columns.Types.Select)
+                {
+                    var combo=input.get(0);
+                    if (combo.selectedIndex<0)
+                        eventArgs.text="";
+                    else
+                        eventArgs.text=combo.options[combo.selectedIndex].text;
+                        
+                    this.UpdateDataMember (this.RowIndexOfTd(eventArgs.td),columnDef.keyfield,input.val());
+                }
 
                 if (this.Events[EdiTable.Const.Events.BeforeUpdateCell]!=undefined)
                     this.Events[EdiTable.Const.Events.BeforeUpdateCell](eventArgs);
