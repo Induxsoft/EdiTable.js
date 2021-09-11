@@ -356,7 +356,8 @@ function ediTable(id)
         DataArray:[],//Contiene un array asociado a las filas
         CSS:
             {
-                Cell:"EdiTable-Cell"
+                Cell:"EdiTable-Cell",
+                RowSelected: "EdiTable-Row-Selected"
             },
         Initialize:function (tableId)
         {
@@ -560,7 +561,8 @@ function ediTable(id)
                     let cell=nr.insertCell();
                     let coldef=this.Columns[i];
 
-                    $(cell).addClass(this.CSS.Cell);
+                    if (this.CSS.Cell)
+                        $(cell).addClass(this.CSS.Cell);
 
                     
 
@@ -993,8 +995,8 @@ function ediTable(id)
             });
 
             EdiTable.SetSelectorKeyEventHandler(selector, _current);
-
-            
+            if (this.CSS.RowSelected)
+                $($(td).parent()).addClass(this.CSS.RowSelected).siblings().removeClass(this.CSS.RowSelected);
         },
         NavUp:function(active_cell)
         {

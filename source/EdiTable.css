@@ -29,3 +29,8 @@
 {
     height: 1.25rem;
 }
+
+.EdiTable-Row-Selected
+{
+    background-color: aquamarine;
+}
