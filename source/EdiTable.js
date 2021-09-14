@@ -354,6 +354,7 @@ function ediTable(id)
         EverMove:true,  //Si es true, deplazamiento a la izquierda en la primera celda sube una fila y se mueve a la última, a la derecha en la última baja una fila y va a la primer celda
         PagOffSet:10,//Desplazamiento con AvPag PrevPag
         DataArray:[],//Contiene un array asociado a las filas
+        ColumnsDefaultType:EdiTable.Const.Columns.Types.Text,
         CSS:
             {
                 Cell:"EdiTable-Cell",
@@ -737,10 +738,10 @@ function ediTable(id)
         {
             let columnDef=this.Columns[this.CurrentColIndex()];
             if (columnDef==undefined)
-                columnDef={type:EdiTable.Const.Columns.Types.Text};
+                columnDef={type:this.ColumnsDefaultType};
 
             if (columnDef.type==undefined)
-                    columnDef.type=EdiTable.Const.Columns.Types.Text;
+                    columnDef.type=this.ColumnsDefaultType;
 
             if (columnDef.type==EdiTable.Const.Columns.Types.Check)
             {
