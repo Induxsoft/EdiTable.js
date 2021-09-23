@@ -15,7 +15,7 @@
 var EdiTable={
     Const : {
         HTML:{
-            Selector:'<button id="__table_selector" class="EdiTable-Selector"></button>',
+            Selector:'<button id="__table_selector" class="EdiTable-Selector" ></button>',
             Inputs:{
                 "Text":'<input type="text" id="__table_input" class="Editable-Input-Text"/>',
                 "Number":'<input type="number" id="__table_input" class="Editable-Input-Number"/>',
@@ -514,7 +514,7 @@ function ediTable(id)
 
             return true;
         },
-        UpdateDataMember:function(row, field, value)
+        UpdateDataMember:function(row, field, value,stopfire=false)
         {
             if (this.DataArray[row]==undefined)
                 this.DataArray[row]={};
@@ -529,7 +529,7 @@ function ediTable(id)
                     value:value
                 };
 
-                if (this.Events[EdiTable.Const.Events.FieldUpdated]!=undefined)
+                if (this.Events[EdiTable.Const.Events.FieldUpdated]!=undefined && !stopfire)
                     this.Events[EdiTable.Const.Events.FieldUpdated](eventArgs);
             }
 
@@ -543,7 +543,7 @@ function ediTable(id)
         {
             var tbody=this.GetTBody();
             var cols=this.ColumnsCount();
-
+            
             if (rw!=undefined)
             {
                 this.DataArray.splice(rw,0,{});
@@ -565,15 +565,12 @@ function ediTable(id)
                     if (this.CSS.Cell)
                         $(cell).addClass(this.CSS.Cell);
 
-                    
-
-                    if (coldef!=undefined)
-                        if (coldef.default!=undefined)
-                        {
-                            this.UpdateDataMember(indexRow,coldef.field,coldef.default)
-                            $(cell).append(coldef.default);
-                        }
-                    
+                        if (coldef!=undefined)
+                            if (coldef.default!=undefined)
+                            {
+                                this.UpdateDataMember(indexRow,coldef.field,coldef.default,true)
+                                $(cell).append(coldef.default);
+                            }
                 }
                 $(EdiTable.Const.HTML.TABLE+"#"+this.tableId+" "+EdiTable.Const.HTML.TD).off("click");
                 $(EdiTable.Const.HTML.TABLE+"#"+this.tableId+" "+EdiTable.Const.HTML.TD).on("click",function(e){
@@ -917,7 +914,7 @@ function ediTable(id)
             
             if (eventArgs.cancel)
                 return false;
-            console.log("llega:"+eventArgs.text);
+            
             $(td).html(eventArgs.text);
             this.UpdateDataMember(this.RowIndexOfTd(td),columnDef.field,eventArgs.text);
 
