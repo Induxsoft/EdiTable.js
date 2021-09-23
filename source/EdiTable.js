@@ -15,7 +15,7 @@
 var EdiTable={
     Const : {
         HTML:{
-            Selector:'<button id="__table_selector" class="EdiTable-Selector" ></button>',
+            Selector:'<button id="__table_selector" class="EdiTable-Selector"></button>',
             Inputs:{
                 "Text":'<input type="text" id="__table_input" class="Editable-Input-Text"/>',
                 "Number":'<input type="number" id="__table_input" class="Editable-Input-Number"/>',
