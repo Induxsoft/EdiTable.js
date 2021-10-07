@@ -2,9 +2,9 @@
 Inline table editing
 
 Habilita la edición de tablas con ámplio soporte de teclado al estilo de hojas de cálculo.
-## Tipos de columnas
+### Tipos de columnas
 
-### EdiTable.Const.Types.Text
+#### EdiTable.Const.Types.Text
 	Indica un editor input(type="text") para todas las celdas de la columna.
 	
 ### EdiTable.Const.Types.Number
