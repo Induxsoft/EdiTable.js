@@ -73,83 +73,131 @@ Habilita la edición de tablas con ámplio soporte de teclado al estilo de hojas
 #### EdiTable.Const.Events.RowAdded
 	Agrega una nueva fila a la tabla
 	
+
+
+### Eventos
+
+#### EdiTable.Const.Events.EnterCell
+	Ocurre cuando una celda toma el foco, justo cuando es seleccionada.
+	
+	Argumentos suministrados por el evento
+	* sender - Representa la instancia de la tabla que lo está generando.
+	* colDef-Contiene el objeto de definición de columna correspondiente a la celda que generó el evento
+	
+#### EdiTable.Const.Events.LeaveCell
+	Ocurre cuando una celda pierde el foco, se reliza un cambio de celda o se selecciona un objeto diferente.
+
+#### EdiTable.Const.Events.StartEdition
+	Ocurre al momento de seleccionar la celda y permite realizar la edicion de esta, puede ser precedida por el evento EnterCell.
+
+#### EdiTable.Const.Events.ConfirmEdition
+	El evento se dispara al confirmar con la tecla "ENTER", cambiar o quitar el foco de la celda que se esta editando.
+
+#### EdiTable.Const.Events.CancelEdition
+	El evento se dispara al no confirmar el contenido de la celda con la tecla "ESC".
+
+#### EdiTable.Const.Events.InputCreated
+	Ocurre al generarse el componente  editor "INPUT" dentro de la celda.
+
+#### EdiTable.Const.Events.BeforeUpdateCell
+	Ocurre antes de definir el nuevo contenido de la celda.
+
+#### EdiTable.Const.Events.BeforeSetInput
+	Ocurre antes de definir el contenido de la celda.
+
+#### EdiTable.Const.Events.FieldUpdated
+
+#### EdiTable.Const.Events.RowAdded
+	Agrega una nueva fila a la tabla
+	
 ## Métodos
 
-	### Initialize()
-		Inicializa la edición de la tabla.
+### Initialize()
+	Inicializa el objeto EdiTable.
 		
-	### GetTHead()
+### GetTHead()
 
-	### GetTBody()
+### GetTBody()
 
-	### ColumnsCount()
+### ColumnsCount()
+	Devuelve el numero de columnas en la tabla. 
+### NavToHome()
+	Mueve el cursor a la celda ubicada en la primera fila y primera columna.
+		
+### NavToEnd() 
+	Mueve el cursor a la celda ubicada en la ultima fila y ultima columna.
+		
+### NavToFirstCell(row)
+	Mueve el cursor a la celda ubicada en laprimer columna de la fila indicada (ROW).
 
-	### NavToHome()
-		Mueve el cursor a la celda ubicada en la primera fila y primera columna.
-	### NavToEnd()
+### NavToLastCell(row)
+	Mueve el cursor a la celda ubicada en laprimer columna de la fila indicada (ROW).
 
-	### NavToFirstCell()
+### NavTo(row,col)
+	Mueve el cursor a la celda ubicada en la columna y fila indicada.
 
-	### NavToLastCell()
+### GetTrByIndex(row)
 
-	### NavTo()
+### DeleteCurrentRow()
+	Elimina la fila actual.
 
-	### GetTrByIndex()
+### DeleteRow(row)
+	Elimina la fila seleccionada en ROW.
 
-	### DeleteCurrentRow()
+### UpdateRow(row)
+	Actualiza  la fila seleccionada en ROW.
 
-	### DeleteRow()
+### UpdateData()
 
-	### UpdateRow()
+### UpdateDataRow(row)
+	Devuelve "TRUE" o "FALSE"
 
-	### UpdateData()
+### UpdateDataMember(row, field, value)
 
-	### UpdateDataRow()
+### AddRow()
+	Agrega una nueva fila a la tabla.
 
-	### UpdateDataMember()
+### InsertRow(rw, nofocus=false)
 
-	### AddRow()
+### TRCount()
 
-	### InsertRow()
+### THCount()
 
-	### TRCount()
+### TDCount(td)
 
-	### THCount()
+### CurrentTd()
 
-	### TDCount()
+### TrOfTd(td)
 
-	### CurrentTd()
+### RowIndexOfTd(td)
 
-	### TrOfTd()
+### CurrentRowIndex()
 
-	### RowIndexOfTd()
+### ColIndexOfTd(td)
 
-	### CurrentRowIndex()
+### CurrentColIndex()
 
-	### ColIndexOfTd()
+### LeaveCell(td) 
 
-	### CurrentColIndex()
+### EnterCell(td)
 
-	### LeaveCell() * 
+### GetColumnDef()
 
-	### EnterCell()
+### GetColumnDefOfTd(td)
 
-	### GetColumnDef()
+### StartEdit(td,text,clear)
 
-	### GetColumnDefOfTd()
+### ConfirmEdit(td, displaytext)
 
-	### StartEdit()
+### CancelEdit(td)
 
-	### ConfirmEdit()
+### CellFocus(td)
 
-	### CancelEdit()
+### NavUp(active_cell)
 
-	### CellFocus()
+### NavLeft(active_cell)
 
-	### NavUp()
+### NavRight(active_cell)
 
-	### NavLeft()
+### NavDown(active_cell)
 
-	### NavRight()
-
-	### NavDown()
